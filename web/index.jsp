@@ -1,9 +1,25 @@
-<%-- 
-    Document   : index
-    Created on : Jan 14, 2016, 10:39:16 AM
-    Author     : CarlosAntonio
---%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<sql:query var="subjects" dataSource="jdbc/Consulting">
+    SELECT subject_id,name FROM subject
+</sql:query>
+    
+<table border="1">
+    <!-- column headers -->
+    <tr>
+    <c:forEach var="columnName" items="${subjects.columnNames}">
+        <th><c:out value="${columnName}"/></th>
+    </c:forEach>
+</tr>
+<!-- column data -->
+<c:forEach var="row" items="${subjects.rowsByIndex}">
+    <tr>
+    <c:forEach var="column" items="${row}">
+        <td><c:out value="${column}"/></td>
+    </c:forEach>
+    </tr>
+</c:forEach>
+</table>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,7 +46,9 @@
                         <form action="response.jsp">
                             <strong>Select a subject:</strong>
                             <select name="subject_id">
-                                <option></option>
+                                <c:forEach var="row" items="${subjects.rows}">
+                                    <option value="${row.subject_id}">${row.name}</option>
+       				</c:forEach>
                             </select>
                             <input type="submit" value="Submit" name="Submit" />
                         </form>
