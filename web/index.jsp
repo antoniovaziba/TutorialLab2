@@ -4,22 +4,6 @@
     SELECT subject_id,name FROM subject
 </sql:query>
     
-<table border="1">
-    <!-- column headers -->
-    <tr>
-    <c:forEach var="columnName" items="${subjects.columnNames}">
-        <th><c:out value="${columnName}"/></th>
-    </c:forEach>
-</tr>
-<!-- column data -->
-<c:forEach var="row" items="${subjects.rowsByIndex}">
-    <tr>
-    <c:forEach var="column" items="${row}">
-        <td><c:out value="${column}"/></td>
-    </c:forEach>
-    </tr>
-</c:forEach>
-</table>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
